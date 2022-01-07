@@ -39,9 +39,10 @@ jobs:
     - name: ES Lint
       run: |
         npm run lint
-    - name: test
-      uses: actions/setup-node@v1 #Setup Node
+    - name: Use Node.js
+      uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '14'
+    - name: test
       run: |
         npm run test
