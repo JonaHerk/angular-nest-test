@@ -176,9 +176,21 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "angular-nest-test"
+  "defaultProject": "angular-nest-test",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
