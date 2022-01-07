@@ -39,10 +39,15 @@ jobs:
     - name: ES Lint
       run: |
         npm run lint
-    - name: Use Node.js
-      uses: actions/setup-node@v1
+
+  karma:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2 #Checkout Repo
+    - uses: actions/setup-node@v1 #Setup Node
       with:
         node-version: '14'
-    - name: test
+    - name: Run Karma Tests
       run: |
+        npm install
         npm run test
