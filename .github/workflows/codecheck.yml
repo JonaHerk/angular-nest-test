@@ -1,0 +1,44 @@
+name: Codecheck
+
+# define when the workflow should run
+on:
+  # run the workflow on any push event (
+  # one could limit this for more controll over different workflows
+  push:
+  # define the workflow to be run manually or by workflow-dispatch actions
+  workflow_dispatch:
+
+# define the concurrency group of the workflow
+# in this case we use the github.ref to cancel deprecated runs on multiple commits
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+# jobs of the workflow to structure the build a bit more
+jobs:
+
+  # first job of the workflow to simulate execution of lint
+  lint:
+    # will use a default runner without any docker image in the background
+    # one could use macos or windows runners as well if needed
+    runs-on: ubuntu-latest
+    # here we could define a container (e.g. if special build tools are needed)
+    container: node:12-alpine
+
+    # define the subsequent steps of the job
+    # each step can fail and break the flow
+    steps:
+
+    # checkout the current branch
+    - uses: actions/checkout@v2
+
+    # run the workload
+    - name: install yarn packages
+      run: |
+        yarn install
+    - name: ES Lint
+      run: |
+        npm run lint
+    - name: test
+      run: |
+        npm run test
