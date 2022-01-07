@@ -33,12 +33,15 @@ jobs:
     - uses: actions/checkout@v2
 
     # run the workload
-    - name: install yarn packages
+    - name: install npm packages
       run: |
-        yarn install
+        npm install
     - name: ES Lint
       run: |
         npm run lint
     - name: test
+      uses: actions/setup-node@v1 #Setup Node
+      with:
+        node-version: '12'
       run: |
         npm run test
